@@ -1,0 +1,21 @@
+.form__input-info {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.form__input-info > ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.form__input-info > ul > li {
+    margin-bottom: 10px;
+}
+
+.form__input-info > ul > li:last-child {
+    margin-bottom: 0;
+}
