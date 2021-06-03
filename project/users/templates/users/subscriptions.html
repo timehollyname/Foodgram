@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
+{% load static users %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/myFollow.css' %}">
@@ -10,50 +10,61 @@
         <h1 class="main__title">Мои подписки</h1>
     </div>
 
-    <div class="card-list">
-        <div class="card-user" data-author="700">
-            <div class="card-user__header">
-                <h2 class="card-user__title">
-                    Вероника Чернова
-                </h2>
-            </div>
+    {% if authors %}
+        <div class="card-list">
+            {% for author in authors %}
+                <div class="card-user" data-author="{{ author.id }}">
+                    <div class="card-user__header">
+                        <h2 class="card-user__title">
+                            {{ author|get_name_or_username }}
+                        </h2>
+                    </div>
 
-            <div class="card-user__body">
-                <ul class="card-user__items">
-                    <li class="card-user__item">
-                        <div class="recipe">
-                            <img src="{% static 'images/testCardImg.png' %}" alt="какой-то-текст" class="recipe__image">
-                            <h3 class="recipe__title">Французские тосты</h3>
-                            <p class="recipe__text"><span class="icon-time"></span> 20 мин.</p>
-                        </div>
-                    </li>
-                    <li class="card-user__item">
-                        <div class="recipe">
-                            <img src="{% static 'images/testCardImg.png' %}" alt="какой-то-текст" class="recipe__image">
-                            <h3 class="recipe__title">Французские тосты</h3>
-                            <p class="recipe__text"><span class="icon-time"></span> 20 мин.</p>
-                        </div>
-                    </li>
-                    <li class="card-user__item">
-                        <div class="recipe">
-                            <img src="{% static 'images/testCardImg.png' %}" alt="какой-то-текст" class="recipe__image">
-                            <h3 class="recipe__title">Французские тосты</h3>
-                            <p class="recipe__text"><span class="icon-time"></span> 20 мин.</p>
-                        </div>
-                    </li>
-                    <li class="card-user__item">
-                        <a href="#" class="card-user__link link">Еще 7 рецептов...</a>
-                    </li>
-                </ul>
-            </div>
+                    <div class="card-user__body">
+                        <ul class="card-user__items">
+                            {% if author.recipes_count > 0 %}
+                                {% for recipe in author.recipes.all %}
+                                    {% if forloop.counter0 < 3 %}
+                                        <li class="card-user__item">
+                                            <div class="recipe">
+                                                <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="recipe__image">
+                                                <h3 class="recipe__title">{{ recipe.name }}</h3>
+                                                <p class="recipe__text"><span class="icon-time"></span> {{ recipe.cooking_time }} мин.</p>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
 
-            <div class="card-user__footer">
-                <button class="button button_style_light-blue button_size_auto" name="subscribe">
-                    Отписаться
-                </button>
-            </div>
+                                {% with recipes_count_remains=author.recipes_count|add:'-3' %}
+                                    {% if recipes_count_remains > 0 %}
+                                        <li class="card-user__item">
+                                            <a href="{% url 'users:recipes' author.username %}" class="card-user__link link">
+                                                Еще {{ recipes_count_remains }} рецептов...
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <li class="card-user__item">
+                                    <p class="card-user__item_text">
+                                        В данный момент, у данного пользователя список с рецептами пуст.
+                                    </p>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <div class="card-user__footer">
+                        <button class="button button_style_light-blue button_size_auto" name="subscribe">
+                            Отписаться
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
 
-    {% include 'components/pagination.html' %}
+        {% if is_paginated %}
+            {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
+        {% endif %}
+    {% endif %}
 {% endblock content %}

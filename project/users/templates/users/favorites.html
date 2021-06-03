@@ -12,8 +12,13 @@
         {% include 'components/tags.html' %}
     </div>
 
-    {% include 'components/recipes.html' %}
-    {% include 'components/pagination.html' %}
+    {% if recipes %}
+        {% include 'components/recipes.html' with recipes=recipes %}
+
+        {% if is_paginated %}
+            {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
+        {% endif %}
+    {% endif %}
 {% endblock content %}
 
 {% block js %}

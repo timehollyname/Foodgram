@@ -20,6 +20,8 @@ class FavoriteViewSet(ListCreateRetrieveDestroyMixin):
             user__id=self.request.user.id
         ).select_related(
             'recipe'
+        ).select_related(
+            'recipe__author'
         ).prefetch_related(
             'recipe__tags'
         ).prefetch_related(

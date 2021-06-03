@@ -21,7 +21,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'debug_toolbar',
     'rest_framework',
     'django_filters',
     'colorfield',
@@ -136,6 +135,9 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
-INTERNAL_IPS = [
-    '127.0.0.1'
-]
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
+
+    INTERNAL_IPS = [
+        '127.0.0.1'
+    ]

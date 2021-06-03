@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
+{% load static users %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/index.css' %}">
@@ -7,21 +7,28 @@
 
 {% block content %}
     <div class="main__header">
-        <h1 class="main__title">Вероника Чернова</h1>
+        <h1 class="main__title">{{ author|get_name_or_username }}</h1>
         
         {% include 'components/tags.html' %}
     </div>
 
-    <div class="author-subscribe" data-author="323">
-        <p style="padding: 0 0 2em 0;">
-            <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>
-                Подписаться на автора
-            </button>
-        </p>
-    </div>
+    {% if request.user.is_authenticated %}
+        <div class="author-subscribe" data-author="{{ author.id }}">
+            <p style="padding: 0 0 2em 0;">
+                <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>
+                    Подписаться на автора
+                </button>
+            </p>
+        </div>
+    {% endif %}
 
-    {% include 'components/recipes.html' %}
-    {% include 'components/pagination.html' %}
+    {% if recipes %}
+        {% include 'components/recipes.html' with recipes=recipes %}
+
+        {% if is_paginated %}
+            {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
+        {% endif %}
+    {% endif %}
 {% endblock content %}
 
 {% block js %}

@@ -10,7 +10,8 @@
     padding-bottom: 18px;
     list-style-type: none;
 }
-.shopping-list__item:after {
+
+.shopping-list__item::after {
     content: '';
     position: absolute;
     left: 0;
@@ -19,6 +20,11 @@
     height: 1px;
     width: 100%;
 }
+
 .shopping-list__item:last-child {
     margin-bottom: 0;
+}
+
+.shopping-list__item:last-child::after {
+    display: none;
 }
