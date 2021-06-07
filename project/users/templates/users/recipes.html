@@ -1,5 +1,10 @@
 {% extends 'layouts/base.html' %}
+
 {% load static users %}
+
+{% block title %}
+    {{ author|get_name_or_username }}
+{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/index.css' %}">
@@ -9,7 +14,7 @@
     <div class="main__header">
         <h1 class="main__title">{{ author|get_name_or_username }}</h1>
         
-        {% include 'components/tags.html' %}
+        {% include 'components/tags.html' with tags=tags %}
     </div>
 
     {% if request.user.is_authenticated %}

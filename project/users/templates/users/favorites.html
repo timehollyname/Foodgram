@@ -1,5 +1,10 @@
 {% extends 'layouts/base.html' %}
+
 {% load static %}
+
+{% block title %}
+    Избранное
+{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/index.css' %}">
@@ -9,11 +14,11 @@
     <div class="main__header">
         <h1 class="main__title">Избранное</h1>
 
-        {% include 'components/tags.html' %}
+        {% include 'components/tags.html' with tags=tags %}
     </div>
 
     {% if recipes %}
-        {% include 'components/recipes.html' with recipes=recipes %}
+        {% include 'components/recipes.html' with recipes=recipes is_the_current_page_a_favorite=True %}
 
         {% if is_paginated %}
             {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}

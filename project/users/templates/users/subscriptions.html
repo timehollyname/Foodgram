@@ -1,5 +1,10 @@
 {% extends 'layouts/base.html' %}
-{% load static users %}
+
+{% load static users recipes %}
+
+{% block title %}
+    Мои подписки
+{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/myFollow.css' %}">
@@ -24,7 +29,7 @@
                         <ul class="card-user__items">
                             {% if author.recipes_count > 0 %}
                                 {% for recipe in author.recipes.all %}
-                                    {% if forloop.counter0 < 3 %}
+                                    {% if forloop.counter0 < conf.RECIPES_IN_SUBSCRIPTIONS_SIZE %}
                                         <li class="card-user__item">
                                             <div class="recipe">
                                                 <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="recipe__image">
@@ -35,15 +40,15 @@
                                     {% endif %}
                                 {% endfor %}
 
-                                {% with recipes_count_remains=author.recipes_count|add:'-3' %}
-                                    {% if recipes_count_remains > 0 %}
-                                        <li class="card-user__item">
-                                            <a href="{% url 'users:recipes' author.username %}" class="card-user__link link">
-                                                Еще {{ recipes_count_remains }} рецептов...
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endwith %}
+                                {% subtract author.recipes_count conf.RECIPES_IN_SUBSCRIPTIONS_SIZE as remained %}
+
+                                {% if remained > 0 %}
+                                    <li class="card-user__item">
+                                        <a href="{% url 'users:recipes' author.username %}" class="card-user__link link">
+                                            Еще {{ remained|declenize:'рецепт рецепта рецептов' }}...
+                                        </a>
+                                    </li>
+                                {% endif %}
                             {% else %}
                                 <li class="card-user__item">
                                     <p class="card-user__item_text">
@@ -68,3 +73,13 @@
         {% endif %}
     {% endif %}
 {% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/config/config.js' %}"></script>
+    <script src="{% static 'js/components/MainCards.js' %}"></script>
+    <script src="{% static 'js/components/MyFollow.js' %}"></script>
+    <script src="{% static 'js/components/Subscribe.js' %}"></script>
+    <script src="{% static 'js/components/Header.js' %}"></script>
+    <script src="{% static 'js/api/Api.js' %}"></script>
+    <script src="{% static 'js/myFollow.js' %}"></script>
+{% endblock js %}

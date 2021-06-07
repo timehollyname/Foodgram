@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
+from ..managers import RecipeManager
 from .ingredient import Ingredient
 from .tag import Tag
 
@@ -45,6 +46,8 @@ class Recipe(models.Model):
         auto_now_add=True,
         db_index=True
     )
+
+    objects = RecipeManager()
 
     class Meta:
         verbose_name = _('Рецепт')

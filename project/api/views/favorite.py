@@ -19,14 +19,11 @@ class FavoriteViewSet(ListCreateRetrieveDestroyMixin):
         return Favorite.objects.filter(
             user__id=self.request.user.id
         ).select_related(
-            'recipe'
-        ).select_related(
+            'recipe',
             'recipe__author'
         ).prefetch_related(
-            'recipe__tags'
-        ).prefetch_related(
-            'recipe__recipe_ingredients'
-        ).prefetch_related(
+            'recipe__tags',
+            'recipe__recipe_ingredients',
             'recipe__recipe_ingredients__ingredient'
         )
 

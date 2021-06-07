@@ -1,14 +1,17 @@
+{% load href tags %}
+
 <ul class="tags">
-    <li class="tags__item">
-        <a id="tag-1" class="tags__checkbox tags__checkbox_style_orange tags__checkbox_active" href="#"></a>
-        <label for="tag-1" class="tags__label">Завтрак</label>
-    </li>
-    <li class="tags__item">
-        <a id="tag-2" class="tags__checkbox tags__checkbox_style_green tags__checkbox_active" href="#"></a>
-        <label for="tag-2" class="tags__label">Обед</label>
-    </li>
-    <li class="tags__item">
-        <a id="tag-3" class="tags__checkbox tags__checkbox_style_purple tags__checkbox_active" href="#"></a>
-        <label for="tag-3" class="tags__label">Ужин</label>
-    </li>
+    {% for tag in tags %}
+        {% is_the_tag_detected_in_get request tag.pk as is_active_tag %}
+
+        <li class="tags__item">
+            <a
+                id="tag-{{ tag.pk }}"
+                href="{% change_tag request tag.pk %}"
+                class="tags__checkbox {% if is_active_tag %}tags__checkbox_active{% endif %}"
+                style="color: {{ tag.color }};"
+            ></a>
+            <label for="tag-{{ tag.pk }}" class="tags__label">{{ tag.name }}</label>
+        </li>
+    {% endfor %}
 </ul>

@@ -9,7 +9,7 @@
     <div class="main__header">
         <h1 class="main__title">Рецепты</h1>
 
-        {% include 'components/tags.html' %}
+        {% include 'components/tags.html' with tags=tags %}
     </div>
 
     {% if recipes %}

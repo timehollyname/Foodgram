@@ -53,6 +53,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'context_processors.conf.conf',
+                'context_processors.tags.tags',
             ],
         },
     },
@@ -120,6 +122,8 @@ LOGOUT_REDIRECT_URL = 'recipes:home'
 
 PASSWORD_RESET_TIMEOUT = 86400
 
+IF_NOT_FOUND_SESSION_THEN_REDIRECT_TO = 'recipes:home'
+
 REST_FRAMEWORK = {
     """
     'DEFAULT_RENDERER_CLASSES': (
@@ -135,9 +139,20 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100
 }
 
+PAGINATION_RECIPES_SIZE = 9
+
+PAGINATION_SUBSCRIPTIONS_SIZE = 9
+
+RECIPES_IN_SUBSCRIPTIONS_SIZE = 3
+
+PROJECT_NAME = 'FoodGram'
+
 if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
 
     INTERNAL_IPS = [
         '127.0.0.1'
     ]
+
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'

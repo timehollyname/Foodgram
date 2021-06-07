@@ -9,10 +9,8 @@ class RecipeViewSet(ReadOnlyModelViewSet):
     queryset = Recipe.objects.select_related(
         'author'
     ).prefetch_related(
-        'tags'
-    ).prefetch_related(
-        'recipe_ingredients'
-    ).prefetch_related(
+        'tags',
+        'recipe_ingredients',
         'recipe_ingredients__ingredient'
     ).all()
 

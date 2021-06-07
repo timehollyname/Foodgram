@@ -21,12 +21,9 @@ class SubscriptionViewSet(ListCreateRetrieveDestroyMixin):
         ).select_related(
             'author'
         ).prefetch_related(
-            'author__recipes'
-        ).prefetch_related(
-            'author__recipes__tags'
-        ).prefetch_related(
-            'author__recipes__recipe_ingredients'
-        ).prefetch_related(
+            'author__recipes',
+            'author__recipes__tags',
+            'author__recipes__recipe_ingredients',
             'author__recipes__recipe_ingredients__ingredient'
         )
 
