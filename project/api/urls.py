@@ -12,11 +12,9 @@ router_v1.register(
 router_v1.register(
     r'ingredients', views.IngredientViewSet, basename='ingredients')
 router_v1.register(
-    r'recipes', views.RecipeViewSet, basename='recipes')
-router_v1.register(
     r'subscriptions', views.SubscriptionViewSet, basename='subscriptions')
 router_v1.register(
-    r'tags', views.TagViewSet, basename='tags')
+    r'purchases', views.PurchasesViewSet, basename='purchases')
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),

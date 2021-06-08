@@ -15,24 +15,25 @@
         <h1 class="main__title">Список покупок</h1>
     </div>
 
-    <div class="card-list card-list_column">
-        <ul class="shopping-list">
-            <li class="shopping-list__item" data-id="111">
-                <div class="recipe recipe_reverse">
-                    <img src="{% static 'images/testCardImg.png' %}" alt="какой-то текст" class="recipe__image recipe__image_big">
-                    <h3 class="recipe__title">Французские тосты</h3>
-                    <p class="recipe__text"><span class="icon-time"></span> 20 мин.</p>
-                </div>
-                <a href="#" class="shopping-list__button link">Удалить</a>
-            </li>
-        </ul>
-
-        <a href="#">
-            <button class="button button_style_blue">
-                Скачать список
-            </button>
-        </a>
-    </div>
+    {% if recipes %}
+        <div class="card-list card-list_column">
+            <ul class="shopping-list">
+                {% for recipe in recipes %}
+                    <li class="shopping-list__item" data-id="{{ recipe.pk }}">
+                        <div class="recipe recipe_reverse">
+                            <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="recipe__image recipe__image_big">
+                            <h3 class="recipe__title">{{ recipe.name }}</h3>
+                            <p class="recipe__text"><span class="icon-time"></span> {{ recipe.cooking_time }} мин.</p>
+                        </div>
+                        <a href="#" class="shopping-list__button link">Удалить</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <a href="#" class="button button_style_blue">Скачать список</a>
+        </div>
+    {% else %}
+        {% include 'components/alert.html' with message="В данный момент, список покупок пуст." %}
+    {% endif %}
 {% endblock content %}
 
 {% block js %}

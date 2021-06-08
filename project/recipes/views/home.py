@@ -10,20 +10,8 @@ class HomeView(ListView):
     paginate_by = settings.PAGINATION_RECIPES_SIZE
 
     def get_queryset(self):
-        objects = Recipe.objects
-
-        if 'tags' in self.request.GET:
-            objects = objects.get_by_tags(
-                self.request.GET.getlist('tags')
-            )
-
-        if self.request.user.is_authenticated:
-            objects = objects.get_var_is_favorite(
-                self.request.user
-            )
-
-        return objects.select_related(
+        return Recipe.objects.get_by_tags(
+            self.request.GET
+        ).get_var_is_favorite(self.request.user).select_related(
             'author'
-        ).prefetch_related(
-            'tags'
-        ).distinct()
+        ).prefetch_related('tags').distinct()

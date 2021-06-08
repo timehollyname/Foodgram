@@ -1,5 +1,5 @@
 class MainCards {
-    constructor(container, card, counter, api, userAuth,button) {
+    constructor(container, card, counter, api, userAuth, button) {
         this.container = container;
         this.card = card;
         this.userAuth = userAuth;
@@ -12,10 +12,10 @@ class MainCards {
 
     addEvent() {
         const eventCb = this._access();
-        this.container.addEventListener('click', eventCb)
+        this.container.addEventListener('click', eventCb);
     }
 
-    _access () {
+    _access() {
         if(this.userAuth) {
             return this._eventUserAuth;
         } else {

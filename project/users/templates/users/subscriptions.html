@@ -71,6 +71,8 @@
         {% if is_paginated %}
             {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
         {% endif %}
+    {% else %}
+        {% include 'components/alert.html' with message="К сожалению, список с подписками в данный момент пуст." %}
     {% endif %}
 {% endblock content %}
 

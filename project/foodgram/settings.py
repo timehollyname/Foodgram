@@ -55,6 +55,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'context_processors.conf.conf',
                 'context_processors.tags.tags',
+                'context_processors.purchases.number_of_recipes_in_purchases',
             ],
         },
     },
@@ -107,9 +108,11 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+
 STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
+
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -144,6 +147,8 @@ PAGINATION_RECIPES_SIZE = 9
 PAGINATION_SUBSCRIPTIONS_SIZE = 9
 
 RECIPES_IN_SUBSCRIPTIONS_SIZE = 3
+
+PURCHASES_SESSION_ID = 'purchases'
 
 PROJECT_NAME = 'FoodGram'
 

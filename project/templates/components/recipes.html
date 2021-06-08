@@ -1,4 +1,4 @@
-{% load static users %}
+{% load static users purchases %}
 
 <div class="card-list">
     {% for recipe in recipes %}
@@ -41,9 +41,15 @@
             </div>
 
             <div class="card__footer">
-                <button class="button button_style_light-blue" name="purchases" data-out>
-                    <span class="icon-plus button__icon"></span>Добавить в покупки
-                </button>
+                {% if recipe|is_the_recipe_detected_in_purchases:request %}
+                    <button class="button button_style_light-blue-outline" name="purchases">
+                        <span class="icon-check button__icon"></span>Рецепт добавлен
+                    </button>
+                {% else %}
+                    <button class="button button_style_light-blue" name="purchases" data-out>
+                        <span class="icon-plus button__icon"></span>Добавить в покупки
+                    </button>
+                {% endif %}
 
                 {% if request.user.is_authenticated %}
                     {% if is_the_current_page_a_favorite or recipe.is_favorite %}

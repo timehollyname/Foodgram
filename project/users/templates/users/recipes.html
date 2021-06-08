@@ -13,7 +13,7 @@
 {% block content %}
     <div class="main__header">
         <h1 class="main__title">{{ author|get_name_or_username }}</h1>
-        
+
         {% include 'components/tags.html' with tags=tags %}
     </div>
 
@@ -33,6 +33,8 @@
         {% if is_paginated %}
             {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
         {% endif %}
+    {% else %}
+        {% include 'components/alert.html' with message="У данного автора нет рецептов. Ожидайте пополнения..." %}
     {% endif %}
 {% endblock content %}
 

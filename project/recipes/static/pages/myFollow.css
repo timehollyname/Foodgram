@@ -63,6 +63,7 @@
 @import "../blocks/icon-left/icon-left.css";
 @import "../blocks/icon-right/icon-right.css";
 
+@import "../blocks/alert/alert.css";
 
 * {
     box-sizing: border-box;

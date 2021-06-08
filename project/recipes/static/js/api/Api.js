@@ -1,132 +1,58 @@
 class Api {
-    constructor(apiUrl) {
-        this.apiUrl =  apiUrl;
-    }
-
-	getPurchases () {
-		return fetch(`/purchases`, {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+    constructor(route) {
+        this.route = route;
+		this.headers = { 'Content-Type': 'application/json' };
 	}
 
-	addPurchases (id) {
-		return fetch(`/purchases`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				id: id
-			})
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+	async getPurchases() {
+		let init = { headers: this.headers };
+		return this.query(`purchases/`, init, true);
 	}
 
-	removePurchases (id){
-		return fetch(`/purchases/${id}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+	async addPurchases(id) {
+		let body = { recipe: id };
+		let init = { method: 'POST', headers: this.headers, body: JSON.stringify(body) };
+		return this.query('purchases/', init, true);
 	}
 
-	addSubscriptions(id) {
-		return fetch(`/subscriptions`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				id: id
-			})
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+	async removePurchases(id) {
+		let init = { method: 'DELETE', headers: this.headers };
+		return this.query(`purchases/${id}/`, init, false);
 	}
 
-	removeSubscriptions (id) {
-		return fetch(`/subscriptions/${id}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+	async addSubscriptions(id) {
+		let body = { id: id };
+		let init = { method: 'POST', headers: this.headers, body: JSON.stringify(body) };
+		return this.query('subscriptions/', init, true);
 	}
 
-	addFavorites (id)  {
-		return fetch(`/favorites`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				id: id
-			})
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+	async removeSubscriptions(id) {
+		let init = { method: 'DELETE', headers: this.headers };
+		return this.query(`subscriptions/${id}/`, init, false);
 	}
 
-	removeFavorites (id) {
-		return fetch(`/favorites/${id}`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(e => {
-			if(e.ok) {
-				return e.json()
-			}
-			return Promise.reject(e.statusText)
-		});
+	async addFavorites(id) {
+		let body = { id: id };
+		let init = { method: 'POST', headers: this.headers, body: JSON.stringify(body) };
+		return this.query('favorites/', init, true);
 	}
 
-	getIngredients  (text)  {
-		return fetch(`/ingredients?query=${text}`, {
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-		.then(e => {
+	async removeFavorites(id) {
+		let init = { method: 'DELETE', headers: this.headers };
+		return this.query(`favorites/${id}/`, init, false);
+	}
+
+	async getIngredients(text) {
+		let init = { headers: this.headers };
+		return this.query(`ingredients/?name=${text}`, init, true);
+	}
+
+	async query(route, init, json) {
+		return fetch(`${this.route}/${route}`, init).then(e => {
 			if(e.ok) {
-				return e.json()
+				return json ? e.json() : e;
 			}
-			return Promise.reject(e.statusText)
+			return Promise.reject(e.statusText);
 		});
 	}
 }

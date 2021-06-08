@@ -66,6 +66,7 @@
 @import "../blocks/icon-favorite/_active/icon-favorite_active.css";
 @import "../blocks/icon-favorite/big/icon-favorite_big.css";
 
+@import "../blocks/alert/alert.css";
 
 * {
     box-sizing: border-box;
