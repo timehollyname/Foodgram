@@ -133,3 +133,8 @@ dmypy.json
 
 # PyCharm
 .idea/
+
+# Django
+media/
+sent_emails/
+static/
