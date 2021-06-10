@@ -74,7 +74,7 @@
 
                     <div class="form__field-group-ingredientes-container">
                         {% for ingredient in recipe.recipe_ingredients.all %}
-                            <div class="form__field-item-ingredient">
+                            <div data-ing-id="{{ ingredient.ingredient.id }}" class="form__field-item-ingredient">
                                 <span>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} {{ ingredient.ingredient.dimension }}</span>
                                 <span class="form__field-item-delete"></span>
                                 <input type="hidden" name="ingredients" type="hidden" value="{{ ingredient.ingredient.id }} && {{ ingredient.quantity }}">
@@ -117,6 +117,22 @@
                     <span class="form__error">
                         {% if form.description.errors %}
                             {{ form.description.errors }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form__group">
+                <span class="form__label">{{ form.image.label }}</span>
+
+                <div class="form__field-group">
+                    <label for="{{ form.image.id_for_label }}" class="form__file-button">Выбрать файл</label>
+
+                    {{ form.image|addclass:'form__file' }}
+
+                    <span class="form__error">
+                        {% if form.image.errors %}
+                            {{ form.image.errors }}
                         {% endif %}
                     </span>
                 </div>

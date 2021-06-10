@@ -1,7 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from rest_framework.viewsets import ViewSet
-from users.models import Purchases  # type: ignore
+
+from users.models import Purchases  # noqa
 
 from ..serializers import PurchasesSerializer
 

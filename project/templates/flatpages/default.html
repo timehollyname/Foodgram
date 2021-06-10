@@ -1,0 +1,9 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{ flatpage.title }}{% endblock title %}
+
+{% block content %}
+    {% include 'components/main/header.html' with title=flatpage.title %}
+
+    {{ flatpage.content }}
+{% endblock content %}

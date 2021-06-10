@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Сервер не смог обработать запрос{% endblock title %}
+
+{% block content %}
+    <div class="custom-center-block">
+        <p class="custom-text-block">500. Ошибка на сервере, попробуйте обновить страницу или обратиться позже.</p>
+
+        <div class="custom-button-block">
+            <a class="button button_style_blue" href="{% url 'recipes:home' %}">Перейти на главную</a>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
 from ..forms import RecipeForm
@@ -49,9 +49,7 @@ class RecipeEditView(LoginRequiredMixin, UpdateView):
         response = super().get(request, *args, **kwargs)
 
         if self.request.user.id != self.object.author.id:
-            return redirect(reverse(
-                'recipes:recipe', kwargs={'pk': self.object.id}
-            ))
+            return redirect(self.object.get_absolute_url())
 
         return response # noqa
 
@@ -96,8 +94,6 @@ class RecipeDestroyView(LoginRequiredMixin, DeleteView):
         super().get(request, *args, **kwargs)
 
         if self.request.user.id != self.object.author.id:
-            return redirect(reverse(
-                'recipes:recipe', kwargs={'pk': self.object.id}
-            ))
+            return redirect(self.object.get_absolute_url())
 
         return super().delete(request, *args, **kwargs)

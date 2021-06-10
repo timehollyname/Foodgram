@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from users.models import Favorite  # type: ignore
+
+from users.models import Favorite  # noqa
 
 
 class FavoriteSerializer(serializers.ModelSerializer):

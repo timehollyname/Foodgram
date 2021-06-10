@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Страница не найдена{% endblock title %}
+
+{% block content %}
+    <div class="custom-center-block">
+        <p class="custom-text-block">404. Страница <code style="color: #4A61DD; padding: 0 5px;">{{ path }}</code> не найдена.</p>
+
+        <div class="custom-button-block">
+            <a class="button button_style_blue" href="{% url 'recipes:home' %}">Перейти на главную</a>
+        </div>
+    </div>
+{% endblock content %}

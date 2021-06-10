@@ -12,5 +12,5 @@ class RecipeIngredientInline(admin.TabularInline):
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('id', 'author', 'name', 'cooking_time', 'created_at',)
     search_fields = ('name', 'description',)
-    list_filter = ('created_at',)
+    list_filter = ('created_at', 'tags__name',)
     inlines = (RecipeIngredientInline,)

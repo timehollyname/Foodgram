@@ -1,6 +1,7 @@
-from recipes.models import Ingredient  # type: ignore
 from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ReadOnlyModelViewSet
+
+from recipes.models import Ingredient  # noqa
 
 from ..serializers import IngredientSerializer
 

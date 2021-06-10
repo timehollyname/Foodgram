@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
-from recipes.models import Recipe  # type: ignore
+
+from recipes.models import Recipe  # noqa
 
 
 class FavoritesView(LoginRequiredMixin, ListView):

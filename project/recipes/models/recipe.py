@@ -41,6 +41,10 @@ class Recipe(models.Model):
         verbose_name=_('Тег(и)'),
         related_name='recipes'
     )
+    image = models.ImageField(
+        verbose_name=_('Изображение'),
+        upload_to='recipes/'
+    )
     created_at = models.DateTimeField(
         verbose_name=_('Дата создания'),
         auto_now_add=True,

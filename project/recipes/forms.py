@@ -23,6 +23,7 @@ class RecipeForm(ModelForm):
             'cooking_time',
             'tags',
             'ingredients',
+            'image',
         )
 
         labels = {
@@ -30,6 +31,7 @@ class RecipeForm(ModelForm):
             'description': _('Описание'),
             'cooking_time': _('Время приготовления'),
             'tags': _('Теги'),
+            'image': _('Загрузить фото'),
         }
 
         widgets = {'tags': CheckboxSelectMultiple()}

@@ -7,7 +7,7 @@ from ..models import Recipe
 class HomeView(ListView):
     model = Recipe
     context_object_name = 'recipes'
-    template_name = 'recipes/index.html'
+    template_name = 'recipes/home.html'
     paginate_by = settings.PAGINATION_RECIPES_SIZE
 
     def get_queryset(self):

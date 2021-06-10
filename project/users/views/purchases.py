@@ -6,7 +6,8 @@ from django.template.loader import get_template
 from django.urls import reverse
 from django.views.generic import ListView, View
 from pdfkit import from_string
-from recipes.models import Recipe  # type: ignore
+
+from recipes.models import Recipe  # noqa
 
 from ..models import Purchases
 

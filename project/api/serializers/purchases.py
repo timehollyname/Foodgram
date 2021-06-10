@@ -1,5 +1,6 @@
-from recipes.models import Recipe  # type: ignore
 from rest_framework import serializers
+
+from recipes.models import Recipe  # noqa
 
 
 class PurchasesSerializer(serializers.Serializer):

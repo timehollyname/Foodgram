@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 
-{% load static users purchases %}
+{% load static users purchases thumbnail %}
 
 {% block title %}{{ recipe.name }}{% endblock title %}
 
@@ -10,7 +10,9 @@
 
 {% block content %}
     <div class="single-card" data-id="{{ recipe.id }}" data-author="{{ recipe.author.id }}">
-        <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="single-card__image">
+        {% thumbnail recipe.image 'x480' crop='center' as img %}
+            <img src="{{ img.url }}" alt="{{ recipe.name }}" class="single-card__image">
+        {% endthumbnail %}
 
         <div class="single-card__info">
             <div class="single-card__header-info">

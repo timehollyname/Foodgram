@@ -1,7 +1,16 @@
-{% load static %}
+{% load thumbnail %}
 
 <div class="recipe {{ classes }}">
-    <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="recipe__image">
-    <h3 class="recipe__title">{{ recipe.name }}</h3>
-    <p class="recipe__text"><span class="icon-time"></span> {{ recipe.cooking_time }} мин.</p>
+    {% thumbnail recipe.image 'x72' crop='center' as img %}
+        <img src="{{ img.url }}" alt="{{ recipe.name }}" class="recipe__image">
+    {% endthumbnail %}
+
+    <h3 class="recipe__title">
+        {{ recipe.name }}
+    </h3>
+
+    <p class="recipe__text">
+        <span class="icon-time"></span> 
+        {{ recipe.cooking_time }} мин.
+    </p>
 </div>

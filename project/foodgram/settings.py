@@ -14,6 +14,8 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
+    'django.contrib.flatpages',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,8 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'sorl.thumbnail',
     'rest_framework',
-    'django_filters',
     'colorfield',
     'recipes',
     'users',
@@ -37,7 +39,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'foodgram.urls'
@@ -108,31 +109,24 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'recipes:home'
-
 LOGIN_URL = 'users:signin'
-
 LOGOUT_REDIRECT_URL = 'recipes:home'
+IF_NOT_FOUND_SESSION_THEN_REDIRECT_TO = 'recipes:home'
 
 PASSWORD_RESET_TIMEOUT = 86400
 
-IF_NOT_FOUND_SESSION_THEN_REDIRECT_TO = 'recipes:home'
-
 REST_FRAMEWORK = {
-    """
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     ),
-    """
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
@@ -143,17 +137,27 @@ REST_FRAMEWORK = {
 }
 
 PAGINATION_RECIPES_SIZE = 9
-
 PAGINATION_SUBSCRIPTIONS_SIZE = 9
-
 RECIPES_IN_SUBSCRIPTIONS_SIZE = 3
+
+EMAIL_HOST = None
+EMAIL_PORT = 465
+EMAIL_HOST_USER = None
+EMAIL_HOST_PASSWORD = None
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 PURCHASES_SESSION_ID = 'purchases'
 
 PROJECT_NAME = 'FoodGram'
 
+SITE_ID = 1
+
 if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
     INTERNAL_IPS = [
         '127.0.0.1'

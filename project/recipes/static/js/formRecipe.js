@@ -20,8 +20,21 @@ function Ingredients() {
     const addIngredient = (e) => {
         if(inputIngredient.value && quantity.value) {
             const data = getValue();
+            const searchIngredient = document.querySelector(`div[id="ing-${data.id}"]`);
+
+            if(searchIngredient) {
+                let input = searchIngredient.querySelector('input');
+                let span = searchIngredient.querySelector('span:not(.form__field-item-delete)');
+                let updatedQuantity = parseFloat(input.value.trim().split(' && ')[1]) + parseFloat(data.quantity);
+
+                input.value = `${data.id} && ${updatedQuantity}`;
+                span.textContent = span.textContent.replace(/\s([0-9.,]+)\s/, ` ${updatedQuantity} `);
+
+                return;
+            }
 
             const elem = document.createElement('div');
+            elem.id = `ing-${data.id}`;
             elem.classList.add('form__field-item-ingredient');
 
             elem.innerHTML = `

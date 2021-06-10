@@ -112,6 +112,22 @@
                 </div>
             </div>
 
+            <div class="form__group">
+                <span class="form__label">{{ form.image.label }}</span>
+
+                <div class="form__field-group">
+                    <label for="{{ form.image.id_for_label }}" class="form__file-button">Выбрать файл</label>
+
+                    {{ form.image|addclass:'form__file' }}
+
+                    <span class="form__error">
+                        {% if form.image.errors %}
+                            {{ form.image.errors }}
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+
             <div class="form__footer">
                 <button type="submit" class="button button_style_blue">
                     Создать рецепт

@@ -1,14 +1,14 @@
-{% load static users purchases %}
-
-{% url 'recipes:recipe' recipe.id as route %}
+{% load thumbnail users purchases %}
 
 <div class="card" data-id="{{ recipe.id }}">
-    <a href="{{ route }}" class="link" target="_blank">
-        <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="card__image">
-    </a>
+    {% thumbnail recipe.image 'x240' crop='center' as img %}
+        <a href="{{ recipe.image.url }}" class="link" target="_blank">
+            <img src="{{ img.url }}" alt="{{ recipe.name }}" class="card__image">
+        </a>
+    {% endthumbnail %}
 
     <div class="card__body">
-        <a class="card__title link" href="{{ route }}" target="_blank">
+        <a class="card__title link" href="{{ recipe.get_absolute_url }}" target="_blank">
             {{ recipe.name }}
         </a>
 

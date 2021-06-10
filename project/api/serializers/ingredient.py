@@ -1,5 +1,6 @@
-from recipes.models import Ingredient  # type: ignore
 from rest_framework.serializers import ModelSerializer
+
+from recipes.models import Ingredient  # noqa
 
 
 class IngredientSerializer(ModelSerializer):
