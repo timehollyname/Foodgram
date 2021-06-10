@@ -14,4 +14,8 @@ class FavoritesView(LoginRequiredMixin, ListView):
             favorites__user__id=self.request.user.id
         ).get_by_tags(
             self.request.GET
-        ).select_related('author').prefetch_related('tags').distinct()
+        ).select_related(
+            'author'
+        ).prefetch_related(
+            'tags'
+        ).distinct()

@@ -12,3 +12,6 @@ class RecipeManager(Manager):
 
     def get_var_is_favorite(self, user):
         return self.get_queryset().get_var_is_favorite(user)
+
+    def get_var_is_subscribed(self, user):
+        return self.get_queryset().get_var_is_subscribed(user)

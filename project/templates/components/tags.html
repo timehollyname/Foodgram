@@ -1,17 +1,17 @@
-{% load href tags %}
+{% if tags %}
+    {% load href tags %}
 
-<ul class="tags">
-    {% for tag in tags %}
-        {% is_the_tag_detected_in_get request tag.pk as is_active_tag %}
-
-        <li class="tags__item">
-            <a
-                id="tag-{{ tag.pk }}"
-                href="{% change_tag request tag.pk %}"
-                class="tags__checkbox {% if is_active_tag %}tags__checkbox_active{% endif %}"
-                style="color: {{ tag.color }};"
-            ></a>
-            <label for="tag-{{ tag.pk }}" class="tags__label">{{ tag.name }}</label>
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="tags">
+        {% for tag in tags %}
+            <li class="tags__item">
+                <a
+                    id="tag-{{ tag.id }}"
+                    href="{% change_tag request tag.id %}"
+                    class="tags__checkbox {% if tag.id|is_the_tag_detected_in_get:request %}tags__checkbox_active{% endif %}"
+                    style="color: {{ tag.color }};"
+                ></a>
+                <label for="tag-{{ tag.id }}" class="tags__label">{{ tag.name }}</label>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

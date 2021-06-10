@@ -1,53 +1,49 @@
 class Api {
-    constructor(route) {
+    constructor(route, csrftoken) {
         this.route = route;
-		this.headers = { 'Content-Type': 'application/json' };
-	}
-
-	async getPurchases() {
-		let init = { headers: this.headers };
-		return this.query(`purchases/`, init, true);
+		this.csrftoken = csrftoken;
+		this.headers = { 'Content-Type': 'application/json', 'X-CSRFToken': this.csrftoken };
 	}
 
 	async addPurchases(id) {
-		let body = { recipe: id };
-		let init = { method: 'POST', headers: this.headers, body: JSON.stringify(body) };
-		return this.query('purchases/', init, true);
+		let body = { 'recipe': id };
+		let init = { 'method': 'POST', 'headers': this.headers, 'body': JSON.stringify(body) };
+		return this.query('purchases/', init);
 	}
 
 	async removePurchases(id) {
-		let init = { method: 'DELETE', headers: this.headers };
+		let init = { 'method': 'DELETE', 'headers': this.headers };
 		return this.query(`purchases/${id}/`, init, false);
 	}
 
 	async addSubscriptions(id) {
-		let body = { id: id };
-		let init = { method: 'POST', headers: this.headers, body: JSON.stringify(body) };
-		return this.query('subscriptions/', init, true);
+		let body = { 'author': id };
+		let init = { 'method': 'POST', 'headers': this.headers, 'body': JSON.stringify(body) };
+		return this.query('subscriptions/', init);
 	}
 
 	async removeSubscriptions(id) {
-		let init = { method: 'DELETE', headers: this.headers };
+		let init = { 'method': 'DELETE', 'headers': this.headers };
 		return this.query(`subscriptions/${id}/`, init, false);
 	}
 
 	async addFavorites(id) {
-		let body = { id: id };
-		let init = { method: 'POST', headers: this.headers, body: JSON.stringify(body) };
-		return this.query('favorites/', init, true);
+		let body = { 'recipe': id };
+		let init = { 'method': 'POST', 'headers': this.headers, 'body': JSON.stringify(body) };
+		return this.query('favorites/', init);
 	}
 
 	async removeFavorites(id) {
-		let init = { method: 'DELETE', headers: this.headers };
+		let init = { 'method': 'DELETE', 'headers': this.headers };
 		return this.query(`favorites/${id}/`, init, false);
 	}
 
 	async getIngredients(text) {
-		let init = { headers: this.headers };
-		return this.query(`ingredients/?name=${text}`, init, true);
+		let init = { 'headers': this.headers };
+		return this.query(`ingredients/?search=${text}`, init);
 	}
 
-	async query(route, init, json) {
+	async query(route, init, json = true) {
 		return fetch(`${this.route}/${route}`, init).then(e => {
 			if(e.ok) {
 				return json ? e.json() : e;

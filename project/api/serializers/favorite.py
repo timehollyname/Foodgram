@@ -9,7 +9,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorite
-        exclude = ('created_at',)
+        exclude = ('id', 'created_at',)
 
         validators = (
             UniqueTogetherValidator(

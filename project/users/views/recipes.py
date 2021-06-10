@@ -20,11 +20,22 @@ class RecipesView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['author'] = self.author
+
+        if(self.request.user.is_authenticated and
+                self.request.user.id != self.author.id):
+            context['is_subscribed'] = self.request.user.subscriptions.filter(
+                author__id=self.author.id
+            ).exists()
+
         return context
 
     def get_queryset(self):
         return self.author.recipes.get_by_tags(
             self.request.GET
-        ).get_var_is_favorite(self.request.user).select_related(
+        ).get_var_is_favorite(
+            self.request.user
+        ).select_related(
             'author'
-        ).prefetch_related('tags').distinct()
+        ).prefetch_related(
+            'tags'
+        ).distinct()

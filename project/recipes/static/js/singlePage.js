@@ -1,6 +1,6 @@
 const container = document.querySelector('.single-card');
 const counterId = document.querySelector('#counter');
-const api = new Api(apiUrl);
+const api = new Api(apiUrl, csrftoken);
 const header = new Header(counterId);
 
 const configButton = {
@@ -8,7 +8,7 @@ const configButton = {
         attr: 'data-out',
         default: {
             class: 'button_style_blue',
-            text: '<span class="icon-plus button__icon"></span>Добавить в покупки'
+            text: '<span class="icon-plus button__icon"></span> Добавить в покупки'
         },
         active: {
             class: 'button_style_light-blue-outline',
@@ -28,19 +28,18 @@ const configButton = {
         attr: 'data-out',
         default: {
             class: 'button_style_blue',
-            text: 'Подписаться на автора'
+            text: 'Отписаться'
         },
         active: {
             class: 'button_style_blue',
-            text: `Отписаться от автора`
+            text: `Подписаться на автора`
         }
     }
-}
+};
 
 const purchases = new Purchases(configButton.purchases, api);
 const favorites = new Favorites(configButton.favorites, api);
 const subscribe = new Subscribe(configButton.subscribe, api);
-
 
 const singleCard = new SingleCard(container, '.single-card', header, api, true,{
     purchases,
@@ -49,5 +48,3 @@ const singleCard = new SingleCard(container, '.single-card', header, api, true,{
 });
 
 singleCard.addEvent();
-
-

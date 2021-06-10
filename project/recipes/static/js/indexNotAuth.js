@@ -1,6 +1,6 @@
 const container = document.querySelector('.card-list');
 const counterId = document.querySelector('#counter');
-const api = new Api(apiUrl);
+const api = new Api(apiUrl, csrftoken);
 const header = new Header(counterId);
 
 const configButton = {

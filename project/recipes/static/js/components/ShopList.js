@@ -1,5 +1,6 @@
 class ShopList {
-    constructor(container, counter, api) {
+    constructor(cardList, container, counter, api) {
+        this.cardList = cardList;
         this.container = container;
         this.counter = counter;
         this.api = api;
@@ -17,6 +18,16 @@ class ShopList {
             this.api.removePurchases(item.getAttribute('data-id')).then(e => {
                 item.remove();
                 this.counter.minusCounter();
+
+                if(this.counter.counterNum < 1) {
+                    this.cardList.remove();
+
+                    let alert = document.createElement('div');
+                    alert.className = 'alert';
+                    alert.innerHTML = '<div class="alert-body">Список покупок пуст. Необходимо добавить хотя бы один рецепт.</div>';
+
+                    document.querySelector('.main').appendChild(alert);
+                }
             }).catch(e => {
                 console.log(e);
             });

@@ -9,7 +9,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscription
-        exclude = ('created_at',)
+        exclude = ('id', 'created_at',)
 
         validators = (
             UniqueTogetherValidator(

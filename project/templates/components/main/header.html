@@ -1,0 +1,7 @@
+<div class="main__header">
+    <h1 class="main__title">{{ title }}</h1>
+
+    {% if is_use_tags %}
+        {% include 'components/tags.html' with tags=tags %}
+    {% endif %}
+</div>

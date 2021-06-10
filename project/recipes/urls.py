@@ -16,6 +16,11 @@ urlpatterns = [
         name='recipeedit'
     ),
     path(
+        r'recipes/<int:pk>/destroy/',
+        views.RecipeDestroyView.as_view(),
+        name='recipedestroy'
+    ),
+    path(
         r'recipes/create/',
         views.RecipeCreateView.as_view(),
         name='recipecreate'

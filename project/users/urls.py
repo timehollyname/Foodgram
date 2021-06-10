@@ -64,6 +64,11 @@ urlpatterns = [
         name='purchases'
     ),
     path(
+        r'purchases/pdf/',
+        views.PurchasesPdfView.as_view(),
+        name='purchases_pdf'
+    ),
+    path(
         r'subscriptions/',
         views.SubscriptionsView.as_view(),
         name='subscriptions'

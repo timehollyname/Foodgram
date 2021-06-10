@@ -1,10 +1,15 @@
 .alert {
     width: 100%;
     border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    color: #212121;
+    background-color: #f5f5f5;
+}
+
+.alert-body {
     padding: 30px;
     text-align: center;
     font-family: 'Montserrat', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 14px;
 }

@@ -2,42 +2,31 @@
 
 {% load static %}
 
-{% block title %}
-    Избранное
-{% endblock title %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'pages/index.css' %}">
-{% endblock css %}
+{% block title %}Избранное{% endblock title %}
 
 {% block content %}
-    <div class="main__header">
-        <h1 class="main__title">Избранное</h1>
-
-        {% include 'components/tags.html' with tags=tags %}
-    </div>
+    {% include 'components/main/header.html' with title='Избранное' is_use_tags=True %}
 
     {% if recipes %}
-        {% include 'components/recipes.html' with recipes=recipes is_the_current_page_a_favorite=True %}
+        <div class="card-list">
+            {% for recipe in recipes %}
+                {% include 'components/recipes/card.html' with recipe=recipe is_the_current_page_a_favorite=True %}
+            {% endfor %}
+        </div>
 
         {% if is_paginated %}
             {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
         {% endif %}
     {% else %}
-        {% include 'components/alert.html' with message="В данный момент, список с избранными рецептами пуст." %}
+        {% include 'components/alert.html' with message='К сожалению, Вы не добавляли рецепты в список избранных.' %}
     {% endif %}
 {% endblock content %}
 
 {% block js %}
     <script src="{% static 'js/components/MainCards.js' %}"></script>
-
     <script src="{% static 'js/components/Purchases.js' %}"></script>
     <script src="{% static 'js/components/Favorites.js' %}"></script>
-
-    <script src="{% static 'js/config/config.js' %}"></script>
     <script src="{% static 'js/components/CardList.js' %}"></script>
     <script src="{% static 'js/components/Header.js' %}"></script>
-
-    <script src="{% static 'js/api/Api.js' %}"></script>
     <script src="{% static 'js/favorite.js' %}"></script>
 {% endblock js %}

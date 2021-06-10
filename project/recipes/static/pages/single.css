@@ -12,6 +12,7 @@
 @import "../blocks/button/size/button_size_auto.css";
 @import "../blocks/button/_style/button_style_light-blue-outline.css";
 @import "../blocks/button/size/button_size_subscribe.css";
+@import "../blocks/button/__icon/button__icon.css";
 
 
 @import "../blocks/header/header.css";

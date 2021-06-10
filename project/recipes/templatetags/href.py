@@ -13,15 +13,15 @@ def change_page(request, page):
 
 
 @register.simple_tag
-def change_tag(request, pk):
-    pk = str(pk)
+def change_tag(request, id):
+    id = str(id)
     req = request.GET.copy()
     tags = req.getlist('tags')
 
-    if pk in tags:
-        tags.remove(pk)
+    if id in tags:
+        tags.remove(id)
     else:
-        tags.append(pk)
+        tags.append(id)
 
     if 'page' in req:
         req.pop('page')

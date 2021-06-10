@@ -2,18 +2,14 @@
 
 {% load static users recipes %}
 
-{% block title %}
-    Мои подписки
-{% endblock title %}
+{% block title %}Мои подписки{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/myFollow.css' %}">
 {% endblock css %}
 
 {% block content %}
-    <div class="main__header">
-        <h1 class="main__title">Мои подписки</h1>
-    </div>
+    {% include 'components/main/header.html' with title='Мои подписки' %}
 
     {% if authors %}
         <div class="card-list">
@@ -31,11 +27,7 @@
                                 {% for recipe in author.recipes.all %}
                                     {% if forloop.counter0 < conf.RECIPES_IN_SUBSCRIPTIONS_SIZE %}
                                         <li class="card-user__item">
-                                            <div class="recipe">
-                                                <img src="{% static 'images/testCardImg.png' %}" alt="{{ recipe.name }}" class="recipe__image">
-                                                <h3 class="recipe__title">{{ recipe.name }}</h3>
-                                                <p class="recipe__text"><span class="icon-time"></span> {{ recipe.cooking_time }} мин.</p>
-                                            </div>
+                                            {% include 'components/recipes/item.html' with recipe=recipe %}
                                         </li>
                                     {% endif %}
                                 {% endfor %}
@@ -52,7 +44,7 @@
                             {% else %}
                                 <li class="card-user__item">
                                     <p class="card-user__item_text">
-                                        В данный момент, у данного пользователя список с рецептами пуст.
+                                        В данный момент, у данного пользователя нет ни одного рецепта.
                                     </p>
                                 </li>
                             {% endif %}
@@ -72,16 +64,14 @@
             {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
         {% endif %}
     {% else %}
-        {% include 'components/alert.html' with message="К сожалению, список с подписками в данный момент пуст." %}
+        {% include 'components/alert.html' with message='Список с подписками в данный момент пуст. Вы ни на кого не подписаны.' %}
     {% endif %}
 {% endblock content %}
 
 {% block js %}
-    <script src="{% static 'js/config/config.js' %}"></script>
     <script src="{% static 'js/components/MainCards.js' %}"></script>
     <script src="{% static 'js/components/MyFollow.js' %}"></script>
     <script src="{% static 'js/components/Subscribe.js' %}"></script>
     <script src="{% static 'js/components/Header.js' %}"></script>
-    <script src="{% static 'js/api/Api.js' %}"></script>
     <script src="{% static 'js/myFollow.js' %}"></script>
 {% endblock js %}

@@ -2,53 +2,46 @@
 
 {% load static users %}
 
-{% block title %}
-    {{ author|get_name_or_username }}
-{% endblock title %}
-
-{% block css %}
-    <link rel="stylesheet" href="{% static 'pages/index.css' %}">
-{% endblock css %}
+{% block title %}{{ author|get_name_or_username }}{% endblock title %}
 
 {% block content %}
-    <div class="main__header">
-        <h1 class="main__title">{{ author|get_name_or_username }}</h1>
+    {% include 'components/main/header.html' with title=author|get_name_or_username is_use_tags=True %}
 
-        {% include 'components/tags.html' with tags=tags %}
-    </div>
-
-    {% if request.user.is_authenticated %}
-        <div class="author-subscribe" data-author="{{ author.id }}">
-            <p style="padding: 0 0 2em 0;">
+    {% if request.user.is_authenticated and request.user.id != author.id %}
+        <div class="author-subscribe" data-author="{{ author.id }}" style="padding-bottom: 2rem;">
+            {% if is_subscribed %}
+                <button class="button button_style_light-blue button_size_subscribe" name="subscribe">
+                    Отписаться от автора
+                </button>
+            {% else %}
                 <button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>
                     Подписаться на автора
                 </button>
-            </p>
+            {% endif %}
         </div>
     {% endif %}
 
     {% if recipes %}
-        {% include 'components/recipes.html' with recipes=recipes %}
+        <div class="card-list">
+            {% for recipe in recipes %}
+                {% include 'components/recipes/card.html' with recipe=recipe %}
+            {% endfor %}
+        </div>
 
         {% if is_paginated %}
             {% include 'components/pagination.html' with page_obj=page_obj paginator=paginator %}
         {% endif %}
     {% else %}
-        {% include 'components/alert.html' with message="У данного автора нет рецептов. Ожидайте пополнения..." %}
+        {% include 'components/alert.html' with message='У данного автора нет ни одного рецепта.' %}
     {% endif %}
 {% endblock content %}
 
 {% block js %}
     <script src="{% static 'js/components/MainCards.js' %}"></script>
-
     <script src="{% static 'js/components/Purchases.js' %}"></script>
     <script src="{% static 'js/components/Favorites.js' %}"></script>
     <script src="{% static 'js/components/Subscribe.js' %}"></script>
-
-    <script src="{% static 'js/config/config.js' %}"></script>
     <script src="{% static 'js/components/AuthorRecipe.js' %}"></script>
     <script src="{% static 'js/components/Header.js' %}"></script>
-
-    <script src="{% static 'js/api/Api.js' %}"></script>
     <script src="{% static 'js/authorRecipe.js' %}"></script>
 {% endblock js %}

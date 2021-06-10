@@ -14,20 +14,20 @@ class Purchases(object):
     def recipes(self):
         return self.__recipes
 
-    def exists(self, pk):
-        return pk in self.recipes
+    def exists(self, id):
+        return id in self.recipes
 
     def count(self):
         return len(self.recipes)
 
-    def add(self, pk):
-        if not self.exists(pk):
-            self.__recipes.append(pk)
+    def add(self, id):
+        if not self.exists(id):
+            self.__recipes.append(id)
             self.__save()
 
-    def remove(self, pk):
-        if self.exists(pk):
-            self.__recipes.remove(pk)
+    def remove(self, id):
+        if self.exists(id):
+            self.__recipes.remove(id)
             self.__save()
 
     def __save(self):

@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -5,30 +7,26 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>
-            {{ conf.PROJECT_NAME }} | 
-            {% block title %}
-                Project
-            {% endblock title %}
-        </title>
+        <title>{{ conf.PROJECT_NAME }} | {% block title %}Project{% endblock title %}</title>
 
         {% block css %}
-            {% comment %}  {% endcomment %}
+            <link rel="stylesheet" href="{% static 'pages/index.css' %}">
         {% endblock css %}
     </head>
     <body>
-        {% include 'components/header.html' %}
+        {% csrf_token %}
+
+        {% include 'components/body/header.html' %}
 
         <main class="main container">
-            {% block content %}
-                {% comment %}  {% endcomment %}
-            {% endblock content %}
+            {% block content %}{% endblock content %}
         </main>
 
-        {% include 'components/footer.html' %}
+        {% include 'components/body/footer.html' %}
 
-        {% block js %}
-            {% comment %}  {% endcomment %}
-        {% endblock js %}
+        <script src="{% static 'js/config/config.js' %}"></script>
+        <script src="{% static 'js/api/Api.js' %}"></script>
+
+        {% block js %}{% endblock js %}
     </body>
 </html>

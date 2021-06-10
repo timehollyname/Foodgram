@@ -37,7 +37,11 @@
 
                 <li class="nav__item {% if request.path == purchases %}nav__item_active{% endif %}">
                     <a href="{{ purchases }}" class="nav__link link">
-                        Список покупок <span class="badge badge_style_blue nav__badge" id="counter">{{ number_of_recipes_in_purchases }}</span>
+                        Список покупок 
+
+                        <span class="badge badge_style_blue nav__badge" id="counter">
+                            {{ number_of_recipes_in_purchases }}
+                        </span>
                     </a>
                 </li>
             </ul>
