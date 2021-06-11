@@ -1,4 +1,4 @@
-### FoodGram ![Workflow](https://github.com/timehollyname/foodgram-project/actions/workflows/actions.yaml/badge.svg)
+### FoodGram ![Workflow](https://github.com/timehollyname/foodgram-project/actions/workflows/actions.yml/badge.svg)
 ____
 #### Описание:
 > FoodGram - это онлайн-сервис, где пользователи смогут публиковать рецепты, подписываться на публикации других пользователей, добавлять понравившиеся рецепты в список «Избранное», а перед походом в магазин скачивать сводный список продуктов, необходимых для приготовления одного или нескольких выбранных блюд.
