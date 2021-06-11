@@ -17,7 +17,7 @@ jobs:
 
       - name: Install dependencies
         run: | 
-          pip install --upgrade pip && pip install -r requirements.txt 
+          pip install --upgrade pip && pip install -r project/requirements.txt 
 
       - name: Test with flake8 and pytest
         run: | 
