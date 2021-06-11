@@ -37,7 +37,7 @@ ____
     2. ```sudo docker-compose up -d```
         - **Обязательно на начальном этапе**. Создать образы и запустить проект в фоновом режиме.
     3. ```sudo docker-compose exec web python project/manage.py collectstatic --no-input```
-        - **Обязательно на начальном этапе**. Собрать всю статику приложений в одну папку. 
+        - **Обязательно на начальном этапе**. Собрать всю статику приложений в одну папку.
     4. ```sudo docker-compose exec web python project/manage.py makemigrations --no-input```
         - **Обязательно на начальном этапе**. Создать новые миграций на основе изменений в моделях.
     5. ```sudo docker-compose exec web python project/manage.py migrate --no-input```
