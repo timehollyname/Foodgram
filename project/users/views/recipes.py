@@ -24,7 +24,7 @@ class RecipesView(ListView):
         if self.request.user.is_authenticated:
             if self.request.user.id != self.author.id:
                 exists = self.request.user.subscriptions
-                exists = filter(author__id=self.author.id).exists()
+                exists = exists.filter(author__id=self.author.id).exists()
                 context['is_subscribed'] = exists
 
         return context
