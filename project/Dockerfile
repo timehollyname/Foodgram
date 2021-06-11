@@ -1,5 +1,7 @@
 FROM python:3.8.5
 
+RUN apt-get update && apt-get upgrade && apt-get install wkhtmltopdf
+
 WORKDIR /FoodGram/
 
 COPY project/requirements.txt /FoodGram/
