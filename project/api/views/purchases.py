@@ -1,4 +1,3 @@
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from rest_framework.viewsets import ViewSet
@@ -10,7 +9,6 @@ from ..serializers import PurchasesSerializer
 
 class PurchasesViewSet(ViewSet):
     serializer_class = PurchasesSerializer
-    permission_classes = AllowAny
     http_method_names = ('get', 'post', 'delete',)
     purchases = None
 

@@ -65,6 +65,7 @@ jobs:
           script: | 
             sudo docker-compose down 
             sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/foodgram:1.0 
+            rm -f .env 
             touch .env 
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env 
             echo DEBUG=${{ secrets.DEBUG }} >> .env 
