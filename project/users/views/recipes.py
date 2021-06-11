@@ -21,11 +21,11 @@ class RecipesView(ListView):
         context = super().get_context_data(**kwargs)
         context['author'] = self.author
 
-        if(self.request.user.is_authenticated and
-                self.request.user.id != self.author.id):
-            context['is_subscribed'] = self.request.user.subscriptions.filter(
-                author__id=self.author.id
-            ).exists()
+        if self.request.user.is_authenticated:
+            if self.request.user.id != self.author.id:
+                exists = self.request.user.subscriptions
+                exists = filter(author__id=self.author.id).exists()
+                context['is_subscribed'] = exists
 
         return context
 
