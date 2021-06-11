@@ -33,7 +33,7 @@ ____
         - **По желанию**. Настроить второй конфигурационный файл. [Настройки - Django](https://djangodoc.ru/3.1/ref/settings/)
 2. Работа с терминалом:
     1. ```sudo systemctl stop nginx```
-        - **Обязательно**. Временно отключить службу nginx.
+        - **Обязательно**. Временно отключить службу nginx. 
     2. ```sudo docker-compose up -d```
         - **Обязательно на начальном этапе**. Создать образы и запустить проект в фоновом режиме.
     3. ```sudo docker-compose exec web python project/manage.py collectstatic --no-input```
