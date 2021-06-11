@@ -12,6 +12,13 @@ DEBUG = int(ENV.get('DEBUG', 0))
 ALLOWED_HOSTS = ENV.get('ALLOWED_HOSTS').split(' ')
 
 INSTALLED_APPS = [
+    'sorl.thumbnail',
+    'rest_framework',
+    'colorfield',
+    'recipes',
+    'users',
+    'api',
+
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.admin',
@@ -20,13 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'sorl.thumbnail',
-    'rest_framework',
-    'colorfield',
-    'recipes',
-    'users',
-    'api',
 ]
 
 MIDDLEWARE = [
