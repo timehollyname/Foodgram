@@ -1,17 +1,15 @@
+from os import environ
 from pathlib import Path
+
+ENV = environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = (
-    'django-insecure-'
-    'sem_ur6du^u&c28e*yl5^49ihqhdd#+5@4$6t(-+d-p=qo&)#1'
-)
+SECRET_KEY = ENV.get('SECRET_KEY')
 
-DEBUG = True
+DEBUG = int(ENV.get('DEBUG', 0))
 
-ALLOWED_HOSTS = [
-    '*'
-]
+ALLOWED_HOSTS = ENV.get('ALLOWED_HOSTS').split(' ')
 
 INSTALLED_APPS = [
     'django.contrib.sites',
@@ -66,8 +64,12 @@ WSGI_APPLICATION = 'foodgram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': ENV.get('DB_ENGINE'),
+        'NAME': ENV.get('DB_NAME'),
+        'USER': ENV.get('POSTGRES_USER'),
+        'PASSWORD': ENV.get('POSTGRES_PASSWORD'),
+        'HOST': ENV.get('DB_HOST'),
+        'PORT': int(ENV.get('DB_PORT')),
     }
 }
 
@@ -98,9 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = ENV.get('LANGUAGE_CODE', 'en-us')
 
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = ENV.get('TIME_ZONE', 'UTC')
 
 USE_I18N = True
 
@@ -140,12 +142,12 @@ PAGINATION_RECIPES_SIZE = 9
 PAGINATION_SUBSCRIPTIONS_SIZE = 9
 RECIPES_IN_SUBSCRIPTIONS_SIZE = 3
 
-EMAIL_HOST = None
-EMAIL_PORT = 465
-EMAIL_HOST_USER = None
-EMAIL_HOST_PASSWORD = None
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False
+EMAIL_HOST = ENV.get('EMAIL_HOST')
+EMAIL_PORT = int(ENV.get('EMAIL_PORT', 465))
+EMAIL_HOST_USER = ENV.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = ENV.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = int(ENV.get('EMAIL_USE_TLS', 0))
+EMAIL_USE_SSL = int(ENV.get('EMAIL_USE_SSL', 0))
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -159,9 +161,7 @@ if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
-    INTERNAL_IPS = [
-        '127.0.0.1'
-    ]
+    INTERNAL_IPS = ENV.get('INTERNAL_IPS').split(' ')
 
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
