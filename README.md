@@ -36,15 +36,15 @@ ____
         - **Обязательно**. Временно отключить службу nginx.
     2. ```sudo docker-compose up -d```
         - **Обязательно на начальном этапе**. Создать образы и запустить проект в фоновом режиме.
-    3. ```sudo docker-compose exec web python manage.py collectstatic --no-input```
+    3. ```sudo docker-compose exec web python project/manage.py collectstatic --no-input```
         - **Обязательно на начальном этапе**. Собрать всю статику приложений в одну папку. 
-    4. ```sudo docker-compose exec web python manage.py makemigrations --no-input```
+    4. ```sudo docker-compose exec web python project/manage.py makemigrations --no-input```
         - **Обязательно на начальном этапе**. Создать новые миграций на основе изменений в моделях.
-    5. ```sudo docker-compose exec web python manage.py migrate --no-input```
+    5. ```sudo docker-compose exec web python project/manage.py migrate --no-input```
         - **Обязательно на начальном этапе**. Создав новые миграции следует применить их к базе данных.
-    6. ```sudo docker-compose exec web python manage.py createsuperuser```
+    6. ```sudo docker-compose exec web python project/manage.py createsuperuser```
         - **По желанию**. Создать пользователя, который может заходить на интерфейс администратора.
-    7. ```sudo docker-compose exec web python manage.py loaddata db.json```
+    7. ```sudo docker-compose exec web python project/manage.py loaddata db.json```
         - **По желанию**. Заполнение базы данных начальными данными. Если не создан хотя-бы один пользователь, может вылететь ошибка.
 3. Демо:
     1. API:
