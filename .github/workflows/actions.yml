@@ -46,6 +46,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          file: project/Dockerfile
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram:1.0
 
   deploy:
