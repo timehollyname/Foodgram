@@ -14,8 +14,8 @@ services:
     restart: always
     command: gunicorn foodgram.wsgi:application --bind 0.0.0.0:8000 --chdir ./project
     volumes:
-      - static:/FoodGram/static/
-      - media:/FoodGram/media/
+      - static:/FoodGram/project/static/
+      - media:/FoodGram/project/media/
     depends_on:
       - db
     env_file:
