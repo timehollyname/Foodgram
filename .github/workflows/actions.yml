@@ -46,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_IMAGE }}:1.0
+          tags: ${{ secrets.DOCKER_USERNAME }}/foodgram:1.0
 
   deploy:
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
           stack_file_name: docker-compose.yaml
           script: | 
             sudo docker-compose down 
-            sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/{{ secrets.DOCKER_IMAGE }}:1.0 
+            sudo docker image rm ${{ secrets.DOCKER_USERNAME }}/foodgram:1.0 
             touch .env 
             echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env 
             echo DEBUG=${{ secrets.DEBUG }} >> .env 
