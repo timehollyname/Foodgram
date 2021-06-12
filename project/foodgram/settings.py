@@ -9,16 +9,9 @@ SECRET_KEY = ENV.get('SECRET_KEY')
 
 DEBUG = int(ENV.get('DEBUG', 0))
 
-ALLOWED_HOSTS = ENV.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = ENV.get('ALLOWED_HOSTS').split()
 
 INSTALLED_APPS = [
-    'sorl.thumbnail',
-    'rest_framework',
-    'colorfield',
-    'recipes',
-    'users',
-    'api',
-
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.admin',
@@ -27,6 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'sorl.thumbnail',
+    'rest_framework',
+    'colorfield',
+    'recipes',
+    'users',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -100,9 +100,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = ENV.get('LANGUAGE_CODE', 'en-us')
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = ENV.get('TIME_ZONE', 'UTC')
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -161,7 +161,7 @@ if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
-    INTERNAL_IPS = ENV.get('INTERNAL_IPS').split(' ')
+    INTERNAL_IPS = ENV.get('INTERNAL_IPS').split()
 
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'

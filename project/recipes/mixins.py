@@ -8,4 +8,4 @@ class AuthorMixin():
         if self.request.user.id != self.object.author.id:
             return redirect(self.object.get_absolute_url())
 
-        return response
+        return response # noqa

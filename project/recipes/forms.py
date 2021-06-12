@@ -1,8 +1,8 @@
 from django.forms import CheckboxSelectMultiple, ModelForm
 
-from .utils import generate_recipe_ingredient
 from .fields import ListWithoutValidationField
 from .models import Recipe, RecipeIngredient
+from .utils import generate_recipe_ingredient
 
 
 class RecipeIngredientForm(ModelForm):

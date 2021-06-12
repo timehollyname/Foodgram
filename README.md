@@ -15,8 +15,6 @@ ____
 | POSTGRES_PASSWORD | str | Пароль, используемый при подключении к базе данных. |
 | DB_HOST | str | Пароль, используемый при подключении к базе данных. |
 | DB_PORT | str | Порт, используемый при подключении к базе данных. |
-| LANGUAGE_CODE | str | [Django](https://djangodoc.ru/3.1/ref/settings/#language-code) |
-| TIME_ZONE | str | [Django](https://djangodoc.ru/3.1/ref/settings/#std:setting-TIME_ZONE) |
 | EMAIL_HOST | str | Имя хоста используемое для отправки электронных писем. |
 | EMAIL_PORT | int | Порт, используемый при подключении к SMTP серверу указанному в ```EMAIL_HOST```. |
 | EMAIL_HOST_USER | str | Имя пользователя используемое при подключении к SMTP серверу указанному в ```EMAIL_HOST```. |
