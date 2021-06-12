@@ -1,10 +1,10 @@
 from django import template
 
-from ..models import Purchases
+from ..models import Purchase
 
 register = template.Library()
 
 
 @register.filter
 def is_the_recipe_detected_in_purchases(id, request):
-    return Purchases(request).exists(id)
+    return Purchase(request).exists(id)

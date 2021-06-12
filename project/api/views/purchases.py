@@ -2,7 +2,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_204_NO_CONTENT
 from rest_framework.viewsets import ViewSet
 
-from users.models import Purchases  # noqa
+from users.models import Purchase  # noqa
 
 from ..serializers import PurchasesSerializer
 
@@ -13,7 +13,7 @@ class PurchasesViewSet(ViewSet):
     purchases = None
 
     def dispatch(self, request, *args, **kwargs):
-        self.purchases = Purchases(request)
+        self.purchases = Purchase(request)
         return super().dispatch(request, *args, **kwargs)
 
     def list(self, request):

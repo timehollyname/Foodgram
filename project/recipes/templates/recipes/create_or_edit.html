@@ -2,17 +2,27 @@
 
 {% load static users %}
 
-{% block title %}Редактирование рецепта{% endblock title %}
+{% block title %}
+    {% if is_edit %}
+        Редактирование рецепта
+    {% else %}
+        Создание рецепта
+    {% endif %}
+{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'pages/form.css' %}">
 {% endblock css %}
 
 {% block content %}
-    {% include 'components/main/header.html' with title='Редактирование рецепта' %}
+    {% if is_edit %}
+        {% include 'components/main/header.html' with title='Редактирование рецепта' %}
+    {% else %}
+        {% include 'components/main/header.html' with title='Создание рецепта' %}
+    {% endif %}
 
     <div class="form-container">
-        <form class="form" action="{% url 'recipes:recipeedit' recipe.id %}" method="POST" enctype="multipart/form-data">
+        <form class="form" action="#" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form__group">
@@ -43,7 +53,7 @@
                                     class="tags__checkbox"
                                     style="color: {{ tag.color }};"
                                     value="{{ tag.id }}"
-                                    {% if tag.id in form.tags.value %}checked=""{% endif %}
+                                    {% if is_edit and tag.id in form.tags.value %}checked=""{% endif %}
                                 >
                                 <label for="tag_{{ tag.id }}" class="tags__label">{{ tag.name }}</label>
                             </div>
@@ -73,17 +83,19 @@
                     </div>
 
                     <div class="form__field-group-ingredientes-container">
-                        {% for ingredient in recipe.recipe_ingredients.all %}
-                            <div data-ing-id="{{ ingredient.ingredient.id }}" class="form__field-item-ingredient">
-                                <span>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} {{ ingredient.ingredient.dimension }}</span>
-                                <span class="form__field-item-delete"></span>
-                                <input type="hidden" name="ingredients" type="hidden" value="{{ ingredient.ingredient.id }} && {{ ingredient.quantity }}">
-                            </div>
-                        {% endfor %}
+                        {% if is_edit %}
+                            {% for ingredient in recipe.recipe_ingredients.all %}
+                                <div data-ing-id="{{ ingredient.ingredient.id }}" class="form__field-item-ingredient">
+                                    <span>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} {{ ingredient.ingredient.dimension }}</span>
+                                    <span class="form__field-item-delete"></span>
+                                    <input type="hidden" name="ingredients" type="hidden" value="{{ ingredient.ingredient.id }} && {{ ingredient.quantity }}">
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
 
                     <span class="form__ingredient-link" id="addIng">Добавить ингредиент</span>
-
+                    
                     <span class="form__error">
                         {% if form.ingredients.errors %}
                             {{ form.ingredients.errors }}
@@ -140,12 +152,18 @@
 
             <div class="form__footer">
                 <button type="submit" class="button button_style_blue">
-                    Сохранить
-                </button> 
+                    {% if is_edit %}
+                        Создать рецепт
+                    {% else %}
+                        Сохранить
+                    {% endif %}
+                </button>
 
-                <a style="margin-left: 2.5em" href="{% url 'recipes:recipedestroy' recipe.id %}" class="form__ingredient-link">
-                    Удалить
-                </a>
+                {% if is_edit %}
+                    <a style="margin-left: 2.5em" href="{% url 'recipes:recipedestroy' recipe.id %}" class="form__ingredient-link">
+                        Удалить
+                    </a>
+                {% endif %}
             </div>
         </form>
     </div>

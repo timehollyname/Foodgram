@@ -13,7 +13,7 @@ class RecipesView(ListView):
     author = None
 
     def dispatch(self, request, *args, **kwargs):
-        username = self.kwargs.get('username', None)
+        username = self.kwargs.get('username')
         self.author = get_object_or_404(User, username=username)
         return super().dispatch(request, *args, **kwargs)
 

@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 
@@ -8,25 +7,25 @@ User = get_user_model()
 class Subscription(models.Model):
     user = models.ForeignKey(
         User,
-        verbose_name=_('Пользователь'),
+        verbose_name='Пользователь',
         related_name='subscriptions',
         on_delete=models.CASCADE
     )
     author = models.ForeignKey(
         User,
-        verbose_name=_('Автор'),
+        verbose_name='Автор',
         related_name='subscribers',
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(
-        verbose_name=_('Дата создания'),
+        verbose_name='Дата создания',
         auto_now_add=True,
         db_index=True
     )
 
     class Meta:
-        verbose_name = _('Подписка')
-        verbose_name_plural = _('Подписки')
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
         ordering = ('-created_at',)
 
         constraints = (

@@ -1,6 +1,6 @@
 from django.forms import CheckboxSelectMultiple, ModelForm
-from django.utils.translation import gettext_lazy as _
 
+from .utils import generate_recipe_ingredient
 from .fields import ListWithoutValidationField
 from .models import Recipe, RecipeIngredient
 
@@ -27,11 +27,11 @@ class RecipeForm(ModelForm):
         )
 
         labels = {
-            'name': _('Название рецепта'),
-            'description': _('Описание'),
-            'cooking_time': _('Время приготовления'),
-            'tags': _('Теги'),
-            'image': _('Загрузить фото'),
+            'name': 'Название рецепта',
+            'description': 'Описание',
+            'cooking_time': 'Время приготовления',
+            'tags': 'Теги',
+            'image': 'Загрузить фото',
         }
 
         widgets = {'tags': CheckboxSelectMultiple()}
@@ -52,3 +52,18 @@ class RecipeForm(ModelForm):
                 raise list(form.errors.as_data().values())[0][0]
 
         return ingredients
+
+    def save(self, author, is_edit):
+        ingredients = self.cleaned_data.pop('ingredients')
+        ingredients = generate_recipe_ingredient(ingredients)
+
+        instance = super().save(commit=False)
+        instance.author = author
+        instance.save()
+
+        if is_edit:
+            instance.ingredients.clear()
+
+        instance.recipe_ingredients.set(ingredients, bulk=False)
+
+        return instance

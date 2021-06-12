@@ -43,7 +43,7 @@ urlpatterns = [
         name='password_reset_done'
     ),
     path(
-        r'reset/<uidb64>/<token>/',
+        r'reset/<uuid:uidb64>/<token>/',
         views.PasswordResetConfirmView.as_view(),
         name='password_reset_confirm'
     ),

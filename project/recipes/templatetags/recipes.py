@@ -10,7 +10,7 @@ def subtract(one, two):
 
 @register.filter
 def declenize(num, nouns):
-    nouns = nouns.strip().split(' ')
+    nouns = nouns.strip().split()
     remains = int(num) % 10
 
     if remains == 1:

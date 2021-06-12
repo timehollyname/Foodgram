@@ -19,6 +19,7 @@ def change_tag(request, id):
     tags = req.getlist('tags')
 
     if id in tags:
+        tags = list(set(tags))
         tags.remove(id)
     else:
         tags.append(id)

@@ -1,14 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
 from ..forms import RecipeForm
-from ..models import Recipe, RecipeIngredient
-
-
-def generate_recipe_ingredient(ingredients):
-    return [RecipeIngredient(**ingredient) for ingredient in ingredients]
+from ..mixins import AuthorMixin
+from ..models import Recipe
 
 
 class RecipeView(DetailView):
@@ -31,11 +28,11 @@ class RecipeView(DetailView):
         )
 
 
-class RecipeEditView(LoginRequiredMixin, UpdateView):
+class RecipeEditView(LoginRequiredMixin, AuthorMixin, UpdateView):
     model = Recipe
     form_class = RecipeForm
     context_object_name = 'recipe'
-    template_name = 'recipes/edit.html'
+    template_name = 'recipes/create_or_edit.html'
 
     def get_queryset(self):
         return super().get_queryset().select_related(
@@ -45,55 +42,30 @@ class RecipeEditView(LoginRequiredMixin, UpdateView):
             'recipe_ingredients__ingredient'
         )
 
-    def get(self, request, *args, **kwargs):
-        response = super().get(request, *args, **kwargs)
-
-        if self.request.user.id != self.object.author.id:
-            return redirect(self.object.get_absolute_url())
-
-        return response # noqa
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_edit'] = True
+        return context
 
     def form_valid(self, form):
-        ingredients = form.cleaned_data.pop('ingredients')
-        ingredients = generate_recipe_ingredient(ingredients)
-
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
-        self.object.save()
-        self.object.ingredients.clear()
-        self.object.recipe_ingredients.set(ingredients, bulk=False)
-
-        return super().form_valid(form)
+        form.save(author=self.request.user, is_edit=True)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
-    template_name = 'recipes/create.html'
+    template_name = 'recipes/create_or_edit.html'
 
     def form_valid(self, form):
-        ingredients = form.cleaned_data.pop('ingredients')
-        ingredients = generate_recipe_ingredient(ingredients)
-
-        self.object = form.save(commit=False)
-        self.object.author = self.request.user
-        self.object.save()
-        self.object.recipe_ingredients.set(ingredients, bulk=False)
-
-        return super().form_valid(form)
+        form.save(author=self.request.user, is_edit=False)
+        return HttpResponseRedirect(self.get_success_url())
 
 
-class RecipeDestroyView(LoginRequiredMixin, DeleteView):
+class RecipeDestroyView(LoginRequiredMixin, AuthorMixin, DeleteView):
     model = Recipe
-    form_class = RecipeForm
-    template_name = 'recipes/create.html'
     http_method_names = ('get',)
     success_url = reverse_lazy('recipes:home')
 
     def get(self, request, *args, **kwargs):
-        super().get(request, *args, **kwargs)
-
-        if self.request.user.id != self.object.author.id:
-            return redirect(self.object.get_absolute_url())
-
         return super().delete(request, *args, **kwargs)

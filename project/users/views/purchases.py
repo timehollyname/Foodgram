@@ -9,7 +9,7 @@ from pdfkit import from_string
 
 from recipes.models import Recipe  # noqa
 
-from ..models import Purchases
+from ..models import Purchase
 
 
 class PurchasesView(ListView):
@@ -17,19 +17,20 @@ class PurchasesView(ListView):
     template_name = 'users/purchases.html'
 
     def get_queryset(self):
-        purchases = Purchases(self.request)
+        purchases = Purchase(self.request)
+        objects = Recipe.objects
 
         if purchases.count() > 0:
-            return Recipe.objects.filter(id__in=purchases.recipes)
+            return objects.filter(id__in=purchases.recipes)
 
-        return []
+        return objects.none()
 
 
 class PurchasesPdfView(View):
     http_method_names = ('get',)
 
     def get(self, request, *args, **kwargs):
-        purchases = Purchases(self.request)
+        purchases = Purchase(self.request)
 
         if purchases.count() > 0:
             options = {
