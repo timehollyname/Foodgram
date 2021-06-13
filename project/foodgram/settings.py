@@ -158,8 +158,13 @@ PROJECT_NAME = 'FoodGram'
 SITE_ID = 1
 
 if DEBUG:
-    INSTALLED_APPS.append('debug_toolbar')
-    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+    INSTALLED_APPS += [
+        'debug_toolbar'
+    ]
+
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    ]
 
     INTERNAL_IPS = ENV.get('INTERNAL_IPS').split()
 

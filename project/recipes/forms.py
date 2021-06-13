@@ -53,17 +53,15 @@ class RecipeForm(ModelForm):
 
         return ingredients
 
-    def save(self, author, is_edit):
+    def save(self, author):
         ingredients = self.cleaned_data.pop('ingredients')
         ingredients = generate_recipe_ingredient(ingredients)
 
-        instance = super().save(commit=False)
-        instance.author = author
-        instance.save()
+        self.instance = super().save(commit=False)
+        self.instance.author = author
+        self.instance.save()
+        self.instance.ingredients.clear()
+        self.instance.recipe_ingredients.set(ingredients, bulk=False)
+        self.save_m2m()
 
-        if is_edit:
-            instance.ingredients.clear()
-
-        instance.recipe_ingredients.set(ingredients, bulk=False)
-
-        return instance
+        return self.instance

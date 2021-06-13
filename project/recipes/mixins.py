@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 
 
@@ -9,3 +10,9 @@ class AuthorMixin():
             return redirect(self.object.get_absolute_url())
 
         return response # noqa
+
+
+class RecipeFormMixin():
+    def form_valid(self, form):
+        self.object = form.save(author=self.request.user)
+        return HttpResponseRedirect(self.get_success_url())

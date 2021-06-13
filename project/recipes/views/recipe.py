@@ -1,10 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
 from ..forms import RecipeForm
-from ..mixins import AuthorMixin
+from ..mixins import AuthorMixin, RecipeFormMixin
 from ..models import Recipe
 
 
@@ -28,7 +27,11 @@ class RecipeView(DetailView):
         )
 
 
-class RecipeEditView(LoginRequiredMixin, AuthorMixin, UpdateView):
+class RecipeEditView(
+        LoginRequiredMixin,
+        AuthorMixin,
+        RecipeFormMixin,
+        UpdateView):
     model = Recipe
     form_class = RecipeForm
     context_object_name = 'recipe'
@@ -47,19 +50,11 @@ class RecipeEditView(LoginRequiredMixin, AuthorMixin, UpdateView):
         context['is_edit'] = True
         return context
 
-    def form_valid(self, form):
-        form.save(author=self.request.user, is_edit=True)
-        return HttpResponseRedirect(self.get_success_url())
 
-
-class RecipeCreateView(LoginRequiredMixin, CreateView):
+class RecipeCreateView(LoginRequiredMixin, RecipeFormMixin, CreateView):
     model = Recipe
     form_class = RecipeForm
     template_name = 'recipes/create_or_edit.html'
-
-    def form_valid(self, form):
-        form.save(author=self.request.user, is_edit=False)
-        return HttpResponseRedirect(self.get_success_url())
 
 
 class RecipeDestroyView(LoginRequiredMixin, AuthorMixin, DeleteView):
