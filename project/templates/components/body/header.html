@@ -1,42 +1,35 @@
-{% url 'recipes:home' as home %}
-{% url 'users:purchases' as purchases %}
-
 <header class="header">
     <nav class="nav">
         <div class="nav__container container">
             <ul class="nav__items list">
-                <li class="nav__item {% if request.resolver_match.url_name == home %}nav__item_active{% endif %}">
-                    <a href="{{ home }}" class="nav__link link">
+                <li class="nav__item {% if request.resolver_match.url_name == 'home' %}nav__item_active{% endif %}">
+                    <a href="{% url 'recipes:home' %}" class="nav__link link">
                         Рецепты
                     </a>
                 </li>
 
                 {% if request.user.is_authenticated %}
-                    {% url 'recipes:recipecreate' as recipecreate %}
-                    {% url 'users:subscriptions' as subscriptions %}
-                    {% url 'users:favorites' as favorites %}
-
-                    <li class="nav__item {% if request.resolver_match.url_name == subscriptions %}nav__item_active{% endif %}">
-                        <a href="{{ subscriptions }}" class="nav__link link">
+                    <li class="nav__item {% if request.resolver_match.url_name == 'subscriptions' %}nav__item_active{% endif %}">
+                        <a href="{% url 'users:subscriptions' %}" class="nav__link link">
                             Мои подписки
                         </a>
                     </li>
 
-                    <li class="nav__item {% if request.resolver_match.url_name == recipecreate %}nav__item_active{% endif %}">
-                        <a href="{{ recipecreate }}" class="nav__link link">
+                    <li class="nav__item {% if request.resolver_match.url_name == 'recipecreate' %}nav__item_active{% endif %}">
+                        <a href="{% url 'recipes:recipecreate' %}" class="nav__link link">
                             Создать рецепт
                         </a>
                     </li>
 
-                    <li class="nav__item {% if request.resolver_match.url_name == favorites %}nav__item_active{% endif %}">
-                        <a href="{{ favorites }}" class="nav__link link">
+                    <li class="nav__item {% if request.resolver_match.url_name == 'favorites' %}nav__item_active{% endif %}">
+                        <a href="{% url 'users:favorites' %}" class="nav__link link">
                             Избранное
                         </a>
                     </li>
                 {% endif %}
 
-                <li class="nav__item {% if request.resolver_match.url_name == purchases %}nav__item_active{% endif %}">
-                    <a href="{{ purchases }}" class="nav__link link">
+                <li class="nav__item {% if request.resolver_match.url_name == 'purchases' %}nav__item_active{% endif %}">
+                    <a href="{% url 'users:purchases' %}" class="nav__link link">
                         Список покупок 
 
                         <span class="badge badge_style_blue nav__badge" id="counter">
@@ -47,10 +40,8 @@
             </ul>
             <ul class="nav__items list">
                 {% if request.user.is_authenticated %}
-                    {% url 'users:password_change' as password_change %}
-
-                    <li class="nav__item {% if request.resolver_match.url_name == password_change %}nav__item_active{% endif %}">
-                        <a href="{{ password_change }}" class="nav__link link">
+                    <li class="nav__item {% if request.resolver_match.url_name == 'password_change' %}nav__item_active{% endif %}">
+                        <a href="{% url 'users:password_change' %}" class="nav__link link">
                             Изменить пароль
                         </a>
                     </li>
@@ -61,10 +52,8 @@
                         </a>
                     </li>
                 {% else %}
-                    {% url 'users:signin' as signin %}
-
-                    <li class="nav__item {% if request.resolver_match.url_name == signin %}nav__item_active{% endif %}">
-                        <a href="{{ signin }}" class="nav__link link">
+                    <li class="nav__item {% if request.resolver_match.url_name == 'signin' %}nav__item_active{% endif %}">
+                        <a href="{% url 'users:signin' %}" class="nav__link link">
                             Войти
                         </a>
                     </li>
