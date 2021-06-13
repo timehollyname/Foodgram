@@ -1,7 +1,7 @@
 from django.conf import settings
 
 
-class Purchase():
+class Purchase:
     __session = None
     __session_id = settings.PURCHASES_SESSION_ID
     __recipes = None
