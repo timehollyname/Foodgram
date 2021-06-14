@@ -59,7 +59,7 @@ function Ingredients() {
         const data = {
             id: inputIngredient.getAttribute('data-id').trim(),
             name: inputIngredient.value.trim(),
-            quantity: quantity.value.trim(),
+            quantity: Math.abs(parseFloat(quantity.value.trim())),
             dimension: dimension.textContent.trim()
         };
 

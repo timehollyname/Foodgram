@@ -81,7 +81,8 @@ class RecipeIngredient(models.Model):
     quantity = models.DecimalField(
         verbose_name='Количество',
         max_digits=6,
-        decimal_places=1
+        decimal_places=1,
+        validators=(MinValueValidator(0),)
     )
 
     class Meta:
